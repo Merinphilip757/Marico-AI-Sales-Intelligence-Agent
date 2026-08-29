@@ -1,5 +1,8 @@
 """Executive Streamlit Application
+Interactive Commercial Intelligence & Scenario Simulator for Marico Sales Intelligence Agent
+Classic Corporate Polish Edition — Zero Emojis, Streamlined Executive Layout
 """
+
 import os
 import streamlit as st
 import pandas as pd
@@ -8,15 +11,15 @@ import plotly.express as px
 import plotly.graph_objects as go
 from sales_agent import SalesIntelligenceAgent
 
-# 1. Page Configuration:
+# 1. Page Configuration & Theme
 st.set_page_config(
     page_title="Marico SalesIQ — AI Sales Intelligence Agent",
-    page_icon="📈",
+    page_icon="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Marico_Logo.svg/320px-Marico_Logo.svg.png",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for executive styling:
+# Custom CSS for executive styling
 st.markdown("""
 <style>
     .main { background-color: #0E1117; }
@@ -27,48 +30,64 @@ st.markdown("""
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         border: 1px solid rgba(255,255,255,0.08);
     }
-    .metric-label { font-size: 0.85rem; color: #9AA0A6; text-transform: uppercase; letter-spacing: 0.5px; }
-    .metric-value { font-size: 1.8rem; font-weight: 700; color: #FFFFFF; margin-top: 4px; }
-    .metric-delta { font-size: 0.85rem; font-weight: 600; margin-top: 2px; }
+    .metric-label { font-size: 0.82rem; color: #9AA0A6; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+    .metric-value { font-size: 1.75rem; font-weight: 700; color: #FFFFFF; margin-top: 4px; }
+    .metric-delta { font-size: 0.82rem; font-weight: 600; margin-top: 3px; }
     .delta-positive { color: #00E676; }
     .delta-negative { color: #FF5252; }
+    
+    /* Classic polished tab headers */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+    }
+    .stTabs [data-baseweb="tab"] {
+        padding: 10px 16px;
+        font-weight: 600;
+        font-size: 0.92rem;
+        border-radius: 6px 6px 0 0;
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# 2. Initialize Agent with Caching:
+# 2. Initialize Agent with Caching
 @st.cache_resource
 def load_sales_agent():
     return SalesIntelligenceAgent()
+
 agent = load_sales_agent()
 pipeline = agent.pipeline
 df = pipeline.df_merged
 summary_stats = pipeline.get_summary_stats()
 
-# 3. Sidebar Controls & Global Filters:
+# 3. Sidebar Controls & Global Filters
 with st.sidebar:
     st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Marico_Logo.svg/320px-Marico_Logo.svg.png", width=160)
-    st.title("SalesIQ Agent")
-    st.caption("AI Commercial Decision Support Platform")
+    st.title("SalesIQ Platform")
+    st.caption("Commercial Decision Support System")
     st.divider()
 
-    st.markdown("### ⚙️ Global Scoping Filters")
+    st.markdown("### Global Scoping Filters")
     selected_category = st.selectbox("Category Scope", ["All Categories"] + pipeline.categories, key="tab_global_cat_filter")
     cat_filter = None if selected_category == "All Categories" else selected_category
+
     selected_chain = st.selectbox("Retail Chain Scope", ["All Chains"] + pipeline.chains, key="tab_global_chain_filter")
     chain_filter = None if selected_chain == "All Chains" else selected_chain
+
     forecast_horizon = st.slider("Forecast Horizon (Months)", min_value=1, max_value=6, value=3, key="tab_global_horizon_sl")
 
     st.divider()
-    st.markdown("### 🎯 Portfolio Health Summary")
+    st.markdown("### Portfolio Health Summary")
     st.metric("Total Market Revenue", f"{summary_stats['total_sell_out_value']/1e6:.1f}M SAR")
     st.metric("Marico Portfolio Share", f"{summary_stats['marico_value_share_pct']:.2f}%")
     st.metric("Pipeline Inventory", f"{summary_stats['total_sell_in_units'] - summary_stats['total_sell_out_units']:,} Units")
+    
     st.divider()
-    st.info("💡 **Prescriptive Alert**: Tamimi & Panda present over **1.65M SAR** in uncaptured fair-share revenue headroom.")
+    st.info("Commercial Opportunity: Tamimi & Panda present over 1.65M SAR in uncaptured fair-share revenue headroom.")
 
-# 4. Main Executive Header & Top KPIs:
-st.title("🚀 Marico Sales Intelligence Agent")
+# 4. Main Executive Header & Top KPIs
+st.title("Marico Sales Intelligence Agent")
 st.markdown("**Predictive, Diagnostic & Prescriptive Analytics** across Sell-In, EPOS Sell-Out, Pricing RPI, Trade Schemes, and Retail Distribution.")
+
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.markdown("""
@@ -93,7 +112,7 @@ with col3:
     <div class="metric-card">
         <div class="metric-label">Fair Share Opportunity Headroom</div>
         <div class="metric-value">{total_opp/1e6:.2f}M <span style="font-size: 1rem; color: #9AA0A6;">SAR</span></div>
-        <div class="metric-delta delta-negative">Tamimi & Panda priority</div>
+        <div class="metric-delta delta-negative">Tamimi & Panda Priority</div>
     </div>
     """, unsafe_allow_html=True)
 with col4:
@@ -108,19 +127,21 @@ with col4:
 
 st.write("")
 
-# 5. Top Tab Navigation (All 8 Pillars):
+# 5. Top Tab Navigation (Classic Polished Titles - Zero Emojis)
 tabs = st.tabs([
-    "📊 Executive Cockpit",
-    "📈 Secondary Sales & Forecasting",
-    "🏷️ RPI & Pricing Simulator",
-    "🎯 Store Activation Targeting",
-    "🎁 BTL Spend ROI & Schemes",
-    "🌐 Distribution & ACV Simulator",
-    "🤖 AI Assistant Chat",
-    "📑 Final Executive Report"
+    "Executive Cockpit",
+    "Secondary Sales & Forecasting",
+    "RPI & Pricing Simulator",
+    "Store Activation Targeting",
+    "BTL Spend ROI & Schemes",
+    "Distribution & ACV Simulator",
+    "AI Assistant Chat",
+    "Final Executive Report"
 ])
 
-# TAB 1: EXECUTIVE COCKPIT:
+# ==============================================================================
+# TAB 1: EXECUTIVE COCKPIT
+# ==============================================================================
 with tabs[0]:
     st.subheader("Commercial Performance & Portfolio Trajectory")
     
@@ -151,6 +172,7 @@ with tabs[0]:
             height=380
         )
         st.plotly_chart(fig_monthly, use_container_width=True)
+
     with col_b:
         cat_share_df = df.groupby("Brand")["Sell-out Value (SAR)"].sum().reset_index()
         fig_donut = px.pie(
@@ -164,6 +186,7 @@ with tabs[0]:
         )
         fig_donut.update_layout(height=380, showlegend=False)
         st.plotly_chart(fig_donut, use_container_width=True)
+
     st.subheader("Performance Across Retail Chains")
     chain_perf = df.groupby(["Chain", "Is_Marico_Portfolio"])["Sell-out Value (SAR)"].sum().unstack(fill_value=0).reset_index()
     chain_perf.columns = ["Chain", "Competitors_SAR", "Marico_SAR"]
@@ -226,30 +249,33 @@ with tabs[0]:
     )
     st.plotly_chart(fig_chain, use_container_width=True)
 
-
-# TAB 2: SECONDARY SALES & FORECASTING:
+# ==============================================================================
+# TAB 2: SECONDARY SALES & FORECASTING
+# ==============================================================================
 with tabs[1]:
     st.subheader("Secondary Sales Projection & Lead-Lag Pipeline Dynamics")
     
     col_f1, col_f2 = st.columns([1, 2])
     with col_f1:
-        st.markdown("#### 🔄 Lead-Lag Cross Correlation")
+        st.markdown("#### Lead-Lag Cross Correlation")
         lead_lag_dict = agent.forecaster.calculate_lead_lag_correlations(category=cat_filter)
         ll_df = pd.DataFrame(list(lead_lag_dict.items()), columns=["Lag Interval", "Correlation Coefficient"])
         st.dataframe(ll_df, use_container_width=True, hide_index=True)
-        st.info("📌 **Key Takeaway**: Sell-In leads EPOS Sell-Out by **0 to 1 month** with r = 0.84 - 0.99, confirming rapid distributor replenishment cycles.")
+        st.info("Key Takeaway: Sell-In leads EPOS Sell-Out by 0 to 1 month with r = 0.84 - 0.99, confirming rapid distributor replenishment cycles.")
+
     with col_f2:
         forecast_proj = agent.forecaster.forecast_secondary_sales(
             horizon_months=forecast_horizon,
             category=cat_filter,
             chain=chain_filter
         )
-        st.markdown(f"#### 🔮 Projected Next {forecast_horizon} Months Secondary Sales")
+        st.markdown(f"#### Projected Next {forecast_horizon} Months Secondary Sales")
         st.dataframe(
             forecast_proj[["Month", "Projected_Sell_in_Units", "Projected_Sell_out_Units", "Projected_Sell_out_Value_SAR", "Projected_Days_of_Cover", "Stock_Health_Status"]],
             use_container_width=True,
             hide_index=True
         )
+
     hist_monthly = pipeline.get_monthly_pipeline()
     fig_f = go.Figure()
     fig_f.add_trace(go.Scatter(
@@ -273,73 +299,95 @@ with tabs[1]:
     )
     st.plotly_chart(fig_f, use_container_width=True)
 
-
-# TAB 3: RPI & PRICING SIMULATOR:
+# ==============================================================================
+# TAB 3: RPI & PRICING SIMULATOR (Layout: Selectors & Cards Top -> Graph Below Action)
+# ==============================================================================
 with tabs[2]:
     st.subheader("Relative Price Index (RPI) Analysis & Pricing Simulator")
     
-    col_r1, col_r2 = st.columns([1, 2])
-    with col_r1:
+    # 1. Top Selectors
+    col_sel1, col_sel2 = st.columns(2)
+    with col_sel1:
         target_cat = st.selectbox(
             "Select Category for RPI Optimization",
             pipeline.categories,
             index=1,
             key="tab_rpi_cat_select"
         )
+    with col_sel2:
         target_brand = st.selectbox(
             "Select Portfolio Brand",
             ["Parachute", "Marico"],
             key="tab_rpi_brand_select"
         )
-        opt_res = agent.rpi_engine.discover_optimal_rpi_corridor(category=target_cat, brand=target_brand)
-        st.markdown(f"### 🏷️ RPI Diagnostic: {target_brand}")
-        st.write(f"**Current RPI Index**: `{opt_res['Current_RPI']}`")
-        st.write(f"**Average Brand Price**: `{opt_res['Current_Avg_Price_SAR']:.2f} SAR`")
-        st.write(f"**Category Benchmark**: `{opt_res['Category_Benchmark_Price_SAR']:.2f} SAR`")
-        st.write(f"**Revenue-Maximizing RPI**: `{opt_res['Revenue_Maximizing_RPI']}`")
+        
+    opt_res = agent.rpi_engine.discover_optimal_rpi_corridor(category=target_cat, brand=target_brand)
+    
+    st.write("")
+    st.markdown(f"#### RPI Diagnostic: {target_brand} in {target_cat}")
+    
+    # 2. Metric Scorecards
+    m1, m2, m3, m4 = st.columns(4)
+    with m1:
+        st.metric("Current RPI Index", f"{opt_res['Current_RPI']}")
+    with m2:
+        st.metric("Average Brand Price", f"{opt_res['Current_Avg_Price_SAR']:.2f} SAR")
+    with m3:
+        st.metric("Category Benchmark", f"{opt_res['Category_Benchmark_Price_SAR']:.2f} SAR")
+    with m4:
+        st.metric("Revenue-Maximizing RPI", f"{opt_res['Revenue_Maximizing_RPI']}")
+
+    st.write("")
+    # 3. Action Cards (Corridor & Recommendation)
+    col_rec1, col_rec2 = st.columns([1, 2])
+    with col_rec1:
         st.success(f"**Recommended Optimal Corridor**: **{opt_res['Optimal_RPI_Corridor']}**")
-        st.info(f"**Action**: {opt_res['Recommended_Commercial_Action']}")
+    with col_rec2:
+        st.info(f"**Strategic Action**: {opt_res['Recommended_Commercial_Action']}")
 
-    with col_r2:
-        sim_curve = opt_res["Simulation_Curve"]
-        fig_rpi = go.Figure()
-        fig_rpi.add_trace(go.Scatter(
-            x=sim_curve["RPI"],
-            y=sim_curve["Simulated_Monthly_Revenue_SAR"],
-            name="Simulated Monthly Revenue (SAR)",
-            line=dict(color="#00E676", width=3)
-        ))
-        fig_rpi.add_vline(
-            x=opt_res["Current_RPI"],
-            line_dash="dot",
-            line_color="#FF5252",
-            annotation_text=f"Current RPI ({opt_res['Current_RPI']})",
-            annotation_position="bottom right",
-            annotation_font=dict(color="#FF5252", size=11)
-        )
-        fig_rpi.add_vline(
-            x=opt_res["Revenue_Maximizing_RPI"],
-            line_dash="dash",
-            line_color="#FFD600",
-            annotation_text=f"Max Rev RPI ({opt_res['Revenue_Maximizing_RPI']})",
-            annotation_position="top left",
-            annotation_font=dict(color="#FFD600", size=11)
-        )
-        fig_rpi.update_layout(
-            title=f"Revenue Curve across RPI Continuum — {target_brand} ({target_cat})",
-            xaxis_title="Relative Price Index (RPI)",
-            yaxis_title="Monthly Revenue (SAR)",
-            template="plotly_dark",
-            height=380
-        )
-        st.plotly_chart(fig_rpi, use_container_width=True)
+    # 4. Revenue Curve Graph Placed Directly Underneath Action (Full-Width & Polished)
+    st.write("")
+    sim_curve = opt_res["Simulation_Curve"]
+    fig_rpi = go.Figure()
+    fig_rpi.add_trace(go.Scatter(
+        x=sim_curve["RPI"],
+        y=sim_curve["Simulated_Monthly_Revenue_SAR"],
+        name="Simulated Monthly Revenue (SAR)",
+        line=dict(color="#00E676", width=3.5)
+    ))
+    fig_rpi.add_vline(
+        x=opt_res["Current_RPI"],
+        line_dash="dot",
+        line_color="#FF5252",
+        annotation_text=f"Current RPI ({opt_res['Current_RPI']})",
+        annotation_position="bottom right",
+        annotation_font=dict(color="#FF5252", size=11)
+    )
+    fig_rpi.add_vline(
+        x=opt_res["Revenue_Maximizing_RPI"],
+        line_dash="dash",
+        line_color="#FFD600",
+        annotation_text=f"Max Rev RPI ({opt_res['Revenue_Maximizing_RPI']})",
+        annotation_position="top left",
+        annotation_font=dict(color="#FFD600", size=11)
+    )
+    fig_rpi.update_layout(
+        title=f"Revenue Curve across RPI Continuum — {target_brand} ({target_cat})",
+        xaxis_title="Relative Price Index (RPI)",
+        yaxis_title="Simulated Monthly Revenue (SAR)",
+        template="plotly_dark",
+        height=400
+    )
+    st.plotly_chart(fig_rpi, use_container_width=True)
 
+    # 5. Summary Matrix Table
     st.subheader("Brand Price & RPI Positioning Matrix")
     rpi_matrix = agent.rpi_engine.calculate_rpi_summary()
     st.dataframe(rpi_matrix, use_container_width=True, hide_index=True)
 
-
-# TAB 4: STORE ACTIVATION TARGETING:
+# ==============================================================================
+# TAB 4: STORE ACTIVATION TARGETING
+# ==============================================================================
 with tabs[3]:
     st.subheader("EPOS Store & Chain-Level Activation Targeting")
     
@@ -369,33 +417,37 @@ with tabs[3]:
         fig_quad.add_vline(x=95.0, line_dash="dash", line_color="gray")
         fig_quad.update_traces(textposition="top center")
         st.plotly_chart(fig_quad, use_container_width=True)
+
     with col_act2:
-        st.markdown("#### 🎯 Priority Accounts for ATL")
+        st.markdown("#### Priority Accounts for ATL & Visibility")
         st.dataframe(
             opp_table[["Chain", "Marico_Market_Share_Pct", "Opportunity_Revenue_Gap_SAR", "Activation_Priority"]],
             use_container_width=True,
             hide_index=True
         )
-        st.info("🏆 **Primary Focus**: Deploy endcaps & localized ATL digital screens in **Tamimi** (1.06M SAR gap) and **Panda** (595k SAR gap).")
+        st.info("Primary Focus: Deploy endcaps & localized ATL digital screens in Tamimi (1.06M SAR gap) and Panda (595k SAR gap).")
 
     st.subheader("Trade Marketing Budget Allocation Optimizer")
     budget_input = st.slider("Total Activation Budget (SAR)", min_value=100000, max_value=2000000, value=500000, step=50000, key="tab_budget_alloc_sl")
     alloc_res = agent.activation_optimizer.get_activation_budget_allocation(total_budget_sar=budget_input, category=cat_filter)
     st.dataframe(alloc_res["Allocation_Plan"], use_container_width=True, hide_index=True)
 
-# TAB 5: BTL SPEND ROI & SCHEMES:
+# ==============================================================================
+# TAB 5: BTL SPEND ROI & SCHEMES
+# ==============================================================================
 with tabs[4]:
     st.subheader("Below-The-Line (BTL) Trade Schemes ROI & Price Elasticity")
     
     col_p1, col_p2 = st.columns([1, 1])
     with col_p1:
-        st.markdown("#### 🏷️ Trade Scheme ROI Comparison")
+        st.markdown("#### Trade Scheme ROI Comparison")
         scheme_eval = agent.promotion_roi.evaluate_schemes(category=cat_filter)
         st.dataframe(
             scheme_eval[["Scheme", "Volume_Lift_Pct", "Incremental_Revenue_SAR", "Spend_ROI_Pct", "Commercial_Effectiveness"]],
             use_container_width=True,
             hide_index=True
         )
+
     with col_p2:
         fig_promo = px.bar(
             scheme_eval,
@@ -409,16 +461,20 @@ with tabs[4]:
             color_continuous_scale="RdYlGn"
         )
         st.plotly_chart(fig_promo, use_container_width=True)
+
     st.subheader("Category Price Elasticity Diagnostics & Recommended Mix")
     cat_elas = agent.promotion_roi.analyze_category_elasticity()
     st.dataframe(cat_elas, use_container_width=True, hide_index=True)
 
-# TAB 6: DISTRIBUTION & ACV SIMULATOR:
+# ==============================================================================
+# TAB 6: DISTRIBUTION & ACV SIMULATOR
+# ==============================================================================
 with tabs[5]:
     st.subheader("Weighted Distribution (WD) Impact Quantification & Listing Simulator")
+    
     col_d1, col_d2 = st.columns([1, 1])
     with col_d1:
-        st.markdown("#### 📈 Distribution Rule of Thumb")
+        st.markdown("#### Distribution Rule of Thumb")
         wd_res = agent.distribution_engine.quantify_wd_impact_on_market_share(category=cat_filter)
         st.success(f"**{wd_res['Commercial_Rule_of_Thumb']}**")
         st.write(f"**Model R²**: `{wd_res['Model_R_Squared']:.3f}`")
@@ -426,8 +482,9 @@ with tabs[5]:
         sim_10 = wd_res["Impact_Simulation_10Pct_WD"]
         st.metric("+10% WD Gain Projected Market Share", f"+{sim_10['Projected_Market_Share_Gain_Pct']:.2f}%")
         st.metric("Estimated Annual Revenue Uplift", f"{sim_10['Estimated_Annual_Revenue_Uplift_SAR']:,.0f} SAR")
+
     with col_d2:
-        st.markdown("#### 🏢 Account Listing Expansion Simulator")
+        st.markdown("#### Account Listing Expansion Simulator")
         sim_chain = st.selectbox("Target Chain to Expand", pipeline.chains, index=6, key="tab_expand_chain_sl")
         sim_cat = st.selectbox("Category Scope", pipeline.categories, index=1, key="tab_expand_cat_sl")
         
@@ -437,33 +494,37 @@ with tabs[5]:
         st.metric(f"Incremental Revenue from Closing Gap in {sim_chain}", f"{sim_output['Incremental_Annual_Revenue_Uplift_SAR']:,.0f} SAR")
         st.info(sim_output["Recommended_Execution"])
 
+# ==============================================================================
 # TAB 7: AI ASSISTANT CHAT
+# ==============================================================================
 with tabs[6]:
-    st.subheader("🤖 AI Sales Intelligence Decision Assistant")
+    st.subheader("AI Sales Intelligence Decision Assistant")
     st.caption("Ask complex commercial questions regarding forecasting, RPI pricing, chain activation, promotional schemes, and distribution.")
 
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = [
             {"role": "assistant", "content": "Hello! I am your AI Sales Intelligence Agent. Ask me about secondary sales forecasts, optimal RPI corridors, store activation targeting, BTL promotion ROI, or weighted distribution expansion."}
         ]
+
     st.markdown("**Quick Executive Prompts:**")
     qc1, qc2, qc3, qc4 = st.columns(4)
     with qc1:
-        if st.button("🔮 Forecast Next Quarter", key="tab_prompt_btn_forecast"):
+        if st.button("Forecast Next Quarter", key="tab_prompt_btn_forecast"):
             st.session_state.user_query = "What is our projected secondary sales and inventory health for next quarter?"
     with qc2:
-        if st.button("🏷️ Optimal RPI in Hair Oils", key="tab_prompt_btn_rpi"):
+        if st.button("Optimal RPI in Hair Oils", key="tab_prompt_btn_rpi"):
             st.session_state.user_query = "What is the optimal RPI corridor for Parachute in Hair Oils against Dabur and Vatika?"
     with qc3:
-        if st.button("🎯 Top ATL Targets", key="tab_prompt_btn_atl"):
+        if st.button("Top ATL Targets", key="tab_prompt_btn_atl"):
             st.session_state.user_query = "Which retail chains should we target for ATL and visibility activation?"
     with qc4:
-        if st.button("🎁 Best Promotion in Shampoo", key="tab_prompt_btn_promo"):
+        if st.button("Best Promotion in Shampoo", key="tab_prompt_btn_promo"):
             st.session_state.user_query = "Which BTL promotional scheme gives highest ROI in Shampoo?"
 
     for msg in st.session_state.chat_history:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
+
     query_input = st.chat_input("Ask a commercial question...", key="tab_chat_input_field")
     if "user_query" in st.session_state and st.session_state.user_query:
         query_input = st.session_state.user_query
@@ -479,15 +540,19 @@ with tabs[6]:
                 response = agent.ask(query_input)
                 st.markdown(response["text_response"])
                 if "data_table" in response and response["data_table"] is not None:
-                    with st.expander("📊 View Analytical Data Table"):
+                    with st.expander("View Analytical Data Table"):
                         st.dataframe(response["data_table"])
                 st.session_state.chat_history.append({"role": "assistant", "content": response["text_response"]})
 
-# TAB 8: FINAL EXECUTIVE REPORT & PDF DOWNLOAD:
+# ==============================================================================
+# TAB 8: FINAL EXECUTIVE REPORT & PDF DOWNLOAD
+# ==============================================================================
 with tabs[7]:
-    st.subheader("📑 Final Commercial Intelligence & Strategy Report")
+    st.subheader("Final Commercial Intelligence & Strategy Report")
     st.caption("Comprehensive Diagnostic, Root Cause Analysis, Strategic Roadmap & PDF Download")
+    
     pdf_filename = "Marico_Sales_Intelligence_Final_Report.pdf"
+    
     if not os.path.exists(pdf_filename):
         try:
             from generate_pdf_report import create_final_report_pdf
@@ -505,30 +570,15 @@ with tabs[7]:
         with open("marico_sales_intelligence_report.md", "r", encoding="utf-8") as f:
             md_report_content = f.read()
 
-    # Read Technical Documentation PDF bytes:
-    tech_pdf_filename = "Marico_SalesIQ_Technical_Documentation.pdf"
-    if not os.path.exists(tech_pdf_filename):
-        try:
-            from generate_documentation_pdf import create_documentation_pdf
-            create_documentation_pdf(tech_pdf_filename)
-        except Exception as e:
-            pass
-
-    tech_pdf_bytes = None
-    if os.path.exists(tech_pdf_filename):
-        with open(tech_pdf_filename, "rb") as f:
-            tech_pdf_bytes = f.read()
-
-    # Top Download Action Bar:
     st.markdown("---")
-    col_d1, col_d2, col_d3, col_d4 = st.columns([2, 1, 1, 1])
+    col_d1, col_d2, col_d3 = st.columns([2, 1, 1])
     with col_d1:
-        st.markdown("### 📥 Executive Deliverables & Technical Specs")
-        st.write("Download the commercial strategy report or the technical architecture & assumptions documentation.")
+        st.markdown("### Executive Deliverables")
+        st.write("Download the complete, publication-ready commercial assessment for executive leadership.")
     with col_d2:
         if pdf_bytes:
             st.download_button(
-                label="📄 Commercial Report (PDF)",
+                label="Download Official Report (PDF)",
                 data=pdf_bytes,
                 file_name="Marico_Sales_Intelligence_Final_Report.pdf",
                 mime="application/pdf",
@@ -539,21 +589,9 @@ with tabs[7]:
         else:
             st.warning("PDF generating...")
     with col_d3:
-        if tech_pdf_bytes:
-            st.download_button(
-                label="🛠️ Technical Spec (PDF)",
-                data=tech_pdf_bytes,
-                file_name="Marico_SalesIQ_Technical_Documentation.pdf",
-                mime="application/pdf",
-                use_container_width=True,
-                key="tab_download_tech_pdf_btn"
-            )
-        else:
-            st.warning("Technical PDF generating...")
-    with col_d4:
         if md_report_content:
             st.download_button(
-                label="📝 Markdown (.md)",
+                label="Download Markdown (.md)",
                 data=md_report_content,
                 file_name="Marico_Sales_Intelligence_Final_Report.md",
                 mime="text/markdown",
@@ -561,13 +599,14 @@ with tabs[7]:
                 key="tab_download_md_btn"
             )
     st.markdown("---")
+
     st.markdown("### 1. Executive Summary & Where We Left Off")
     st.markdown("""
 Our analytical pipeline harmonized and evaluated **14,416 commercial transaction records** across 8 retail chains, 3 categories, and 11 competing brands over a 12-month period.
 
 - **Total Market Size**: **437.65 Million SAR** EPOS Secondary Sell-Out (8.98 Million units).
 - **Marico Portfolio**: Captured **78.80 Million SAR** in secondary EPOS sales (**18.01% Value Market Share**).
-- **Fair Share Headroom**: **2.44 Million SAR** in uncaptured revenue opportunity across under indexed accounts.
+- **Fair-Share Headroom**: **2.44 Million SAR** in uncaptured revenue opportunity across under-indexed accounts.
 """)
 
     scorecard_df = pd.DataFrame([
@@ -683,4 +722,4 @@ Our analytical pipeline harmonized and evaluated **14,416 commercial transaction
 """, unsafe_allow_html=True)
 
     st.write("")
-    st.success("🎯 **Executive Target**: Executing this commercial roadmap captures **+2.44 Million SAR** in uncaptured headroom, re-claims market share in Panda and Tamimi, eliminates **1.25M SAR** of wasteful discounting, and elevates total portfolio market share from **18.01% to 19.5%+**.")
+    st.success("Executive Target: Executing this commercial roadmap captures +2.44 Million SAR in uncaptured headroom, re-claims market share in Panda and Tamimi, eliminates 1.25M SAR of wasteful discounting, and elevates total portfolio market share from 18.01% to 19.5%+.")
