@@ -1,4 +1,4 @@
-﻿# Marico AI Sales Intelligence Agent 🚀
+﻿# Marico-Inspired AI Sales Intelligence & Decision Support System 🚀
 
 An enterprise-grade AI-driven **Sales Intelligence & Decision Support System** designed to process diverse FMCG commercial data streams (Internal Sell-In, EPOS Secondary Sell-Out, Category Market Shares, and Pricing/Scheme feeds) to deliver predictive, diagnostic, and prescriptive commercial intelligence.
 
